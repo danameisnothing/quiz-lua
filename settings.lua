@@ -7,6 +7,7 @@ settings.RandomizeOptionOrder = true -- Currently non-functional
 settings.WaitQuizFinished = 1 -- In seconds, sets the wait time after the quiz has been finished
 settings.ShowAnswerOnSubmit = true -- Shows the correct answer upon entering a response
 settings.PrintLog = true -- Prints the debug message that were used to debug possible problems
+settings.ReviewQuizOnFinished = true -- Shows all of the questions and answers to each questions at the end of the quiz
 
 -- Remember, lua arrays starts at 1, and please don't try and break it :(, question have to be a string
 settings.Questions = {

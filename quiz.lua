@@ -49,6 +49,7 @@ local qNum = 1
 local answeredIndex = {}
 local answeredChoice = {} -- lazy hack number aaaa
 local correctAnswer = {} -- another lazy hack aaaaaa
+local questionIndex = {} -- i can't be bothered
 
 if settings.EnableGlobalTimer then
     gTimer = settings.GlobalTimer
@@ -99,8 +100,47 @@ local function showEndText(isTimeUp)
         end
     end
     print("Your grade is : " .. tostring(utils.Round(correctAnsIndex / #answeredChoice * 100)) .. "% (" .. tostring(correctAnsIndex) .. " / " .. #answeredChoice .. " question(s) answered right)")
-    if settings.PrintLog then
-        print("Log : review question later")
+    if settings.ReviewQuizOnFinished then
+        print("Question reviews : \n")
+        qNum = 1
+        for _qIndex, _qTables in ipairs(settings.Questions) do
+            for i = 1, #_qTables do
+                local _opTables = _qTables[i] -- lazy code porting
+                if type(_opTables) == "table" then
+                    local optCount = 1
+                    for _opIndex, _opName in ipairs(_opTables) do
+                        if optCount <= 26 then
+                            for _aAlphabet, _aIndex in pairs(letters) do
+                                if _aIndex == _opIndex then
+                                    print(tostring(_aAlphabet) .. ". " .. _opName) -- Prints options
+                                    break
+                                end
+                            end
+                            optCount = optCount + 1
+                        else
+                            warn("Warning : Too many options on question number " .. tostring(_qIndex) .. ", discarding options more than 26")
+                            break
+                        end
+                    end
+                    for _aIndex, _answer in pairs(answeredChoice) do
+                        if type(correctAnswer[_aIndex]) == "string" and type(_answer) == "string" then
+                            for _k = 1, #questionIndex do
+                                local _qNum = questionIndex[_k]
+                                if _aIndex == _qNum and _qIndex == _qNum then
+                                    print("Your answer : " .. string.upper(answeredChoice[_k]) .. ", correct answer : " .. string.upper(correctAnswer[_k]) .. "\n") -- not necessary
+                                    break
+                                end
+                            end
+                        else
+                            error("type(correctAnswer[_aIndex]) or type(_answer) doesn't return 'string'")
+                        end
+                    end
+                    qNum = qNum + 1
+                elseif type(_opTables) == "string" then
+                    print(tostring(qNum) .. ". " .. tostring(_opTables)) -- Prints question name
+                end
+            end
+        end
     end
     os.exit(true)
 end
@@ -136,8 +176,8 @@ local function showQuestionIndex(_i)
                         -- does this even work properly?
                         if input ~= nil then
                             local canBreak = false
-                            for i = 1, #_qTables do
-                                local _opTablesAns = _qTables[i] -- lazy code porting again
+                            for j = 1, #_qTables do
+                                local _opTablesAns = _qTables[j] -- lazy code porting again
                                 if type(_opTablesAns) == "table" then
                                     for _opIndex in ipairs(_opTablesAns) do
                                         for _aAlphabet, _aIndex in pairs(letters) do
@@ -188,6 +228,7 @@ local function showQuestionIndex(_i)
                     end
                     table.insert(answeredChoice, string.lower(input))
                     table.insert(answeredIndex, _qIndex)
+                    table.insert(questionIndex, _i)
                 end
             end
         end
