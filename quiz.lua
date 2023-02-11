@@ -60,7 +60,7 @@ end
 -- Wanted feature :
 -- A review system at the end of the quiz (maybe store answers using tables and pray they match up with answeredIndex?)
 
-local function devShowEndText()
+--[[local function devShowEndText()
     local answer = nil
     while true do
         print("Continue ? (type y for yes or n for no)")
@@ -73,7 +73,7 @@ local function devShowEndText()
             print("Unrecognised input, please try again.")
         end
     end
-end
+end]]
 
 local function formatTimer(sec)
     local hours = math.floor((sec % 86400) / 3600)
@@ -278,7 +278,7 @@ while true do
             end
         end
         qNum = qNum + 1
-        devShowEndText()
+        --devShowEndText() for debugging
     else
         showEndText(true)
     end
