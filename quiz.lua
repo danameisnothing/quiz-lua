@@ -57,9 +57,6 @@ else
     gTimer = math.huge -- lazy hack
 end
 
--- Wanted feature :
--- A review system at the end of the quiz (maybe store answers using tables and pray they match up with answeredIndex?)
-
 --[[local function devShowEndText()
     local answer = nil
     while true do
