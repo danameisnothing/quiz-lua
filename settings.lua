@@ -9,7 +9,7 @@ settings.ShowAnswerOnSubmit = true -- Shows the correct answer upon entering a r
 settings.PrintLog = true -- Prints the debug message that were used to debug possible problems
 settings.ReviewQuizOnFinished = true -- Shows all of the questions and answers to each questions at the end of the quiz
 
--- Remember, lua arrays starts at 1, and please don't try and break it :(, question have to be a string
+-- Remember, lua tables starts at index 1, and please don't try and break it :(, question have to be a string
 settings.Questions = {
     {"what's 1+1", {
         "0",
