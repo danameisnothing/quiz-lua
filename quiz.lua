@@ -215,9 +215,9 @@ local function showQuestionIndex(_i)
                             if settings.Questions[_qIndex][3] == _pAlphabetIndex then
                                 table.insert(correctAnswer, _pAlphabet) -- bruh
                                 if settings.ShowAnswerOnSubmit then
-                                    print("Incorrect answer, the right answer is : " .. tostring(_pAlphabet) .. ". " .. settings.Questions[_qIndex][2][settings.Questions[_qIndex][3]]) -- lmao
+                                    print("Incorrect answer, the right answer is : " .. tostring(_pAlphabet) .. ". " .. settings.Questions[_qIndex][2][settings.Questions[_qIndex][3]] .. "\n") -- lmao
                                 else
-                                    print("Answer submitted")
+                                    print("Answer submitted\n")
                                 end
                                 break
                             end
